@@ -1,6 +1,9 @@
+import 'package:get_it/get_it.dart';
 
 import 'core_module.dart';
 
-void initDependencyInjection(){
+final getIt = GetIt.instance;
+
+void initDependencyInjection() {
   initCoreModule();
 }

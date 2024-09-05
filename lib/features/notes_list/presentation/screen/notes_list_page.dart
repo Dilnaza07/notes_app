@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:notes_app/core/navigation/routers/notes_list_route.dart';
 
 class NotesListPage extends StatelessWidget {
   const NotesListPage({super.key});
@@ -8,6 +10,12 @@ class NotesListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('NOTES LIST'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push("${NotesListRoute.name}notRoute");
+        },
+
       ),
     );
   }

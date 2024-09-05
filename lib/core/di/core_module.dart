@@ -1,7 +1,7 @@
-import 'package:get_it/get_it.dart';
 import '../navigation/router.dart';
+import 'dependency_injection.dart';
 
-final getIt = GetIt.instance;
+
 
 void initCoreModule(){
   getIt.registerSingleton(NotesRouter());

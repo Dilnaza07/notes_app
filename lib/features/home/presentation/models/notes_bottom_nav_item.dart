@@ -3,9 +3,13 @@ import 'package:notes_app/core/navigation/routers/profile_route.dart';
 import 'package:notes_app/core/navigation/routers/reminders_route.dart';
 
 enum NotesBottomNavItem {
-  notesList,
-  reminders,
-  profile;
+  notesList(path: NotesListRoute.name),
+  reminders(path: RemindersRoute.name),
+  profile(path: ProfileRoute.name);
+
+  final String path;
+
+  const NotesBottomNavItem({required this.path});
 
   String getRoute() {
     return switch (this) {

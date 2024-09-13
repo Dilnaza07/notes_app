@@ -79,6 +79,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Создание заметки`
+  String get note_create {
+    return Intl.message(
+      'Создание заметки',
+      name: 'note_create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите текст`
+  String get enter_text {
+    return Intl.message(
+      'Введите текст',
+      name: 'enter_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

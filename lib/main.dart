@@ -1,17 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'core/di/core_module.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/navigation/router.dart';
+import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   initDependencyInjection();
   runApp(NotesApp(
     notesRouter: getIt(),
   ));
 }
+// void main() {
+//   initDependencyInjection();
+//   runApp(NotesApp(
+//     notesRouter: getIt(),
+//   ));
+// }
 
 class NotesApp extends StatelessWidget {
   const NotesApp({super.key, required this.notesRouter});

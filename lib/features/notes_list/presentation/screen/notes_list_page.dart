@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/navigation/routers/note_route.dart';
 import '../bloc/notes_list_bloc.dart';
 
@@ -11,19 +12,35 @@ class NotesListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NotesListBloc(),
+      create: (context) => getIt<NotesListBloc>()..add(NotesDataLoaded()),
       child: Scaffold(
         appBar: AppBar(
           title: Text('NOTES LIST'),
         ),
         body: _Body(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.note_add_outlined),
-          onPressed: (){
-            context.push(NoteRoute.name);
-          },
-        ),
+        floatingActionButton: _CreateButton(),
       ),
+    );
+  }
+}
+
+class _CreateButton extends StatelessWidget {
+  const _CreateButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final notesListBloc = context.read<NotesListBloc>();
+    return FloatingActionButton(
+      child: Icon(Icons.note_add_outlined),
+      onPressed: (){
+        context.push('/note').then((value){
+          if(value==true){
+            notesListBloc.add(NotesDataLoaded());
+          }
+        });
+      },
     );
   }
 }

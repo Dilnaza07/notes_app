@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 import '../notes_db_servise.dart';
 
 class NoteEntity extends Equatable {
-  final int id;
+  final int? id;
   final String title;
   final String content;
 
-  const NoteEntity({required this.id, required this.title, required this.content});
+  const NoteEntity({ this.id, required this.title, required this.content});
 
   factory NoteEntity.fromJson(Map<String, dynamic> json) {
     return NoteEntity(

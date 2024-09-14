@@ -25,13 +25,13 @@ class NotesLocalRepositoryImpl implements NotesLocalRepository {
     final entities = _notesDbServise.getNotes();
     debugPrint('### getNotes -> entities: $entities');
     return entities
-        .then((list) => list.map((e) => Note(title: e.title, content: e.content)).toList());
+        .then((list) => list.map((e) => Note(id: e.id, title: e.title, content: e.content)).toList());
   }
 
   @override
   Future<Note?> getNoteById(int id) {
     final entity = _notesDbServise.getNotesById(id);
     debugPrint('### getNoteById -> entity: $entity');
-    return entity.then((e) => e == null ? null : Note(title: e.title, content: e.content));
+    return entity.then((e) => e == null ? null : Note(id: e.id, title: e.title, content: e.content));
   }
 }

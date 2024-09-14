@@ -33,8 +33,8 @@ class NotesDatabase {
   Future<void> _onCreate(Database db, int version) async {
     debugPrint('\#\#\# _onCreate');
 
-    await db.execute(
-        '''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)''');
+    // await db.execute(
+    //     '''CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)''');
 
     await db.execute('''CREATE TABLE ${NotesDbServise.tableName}(
     ${NotesDbServise.columnId} INTEGER PRIMARY KEY AUTOINCREMENT, 

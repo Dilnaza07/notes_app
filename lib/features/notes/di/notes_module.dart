@@ -5,11 +5,15 @@ import 'package:notes_app/features/notes/domain/notes_interactor.dart';
 import 'package:notes_app/features/notes/domain/repository/notes_local_repository.dart';
 
 import '../../../core/di/dependency_injection.dart';
+import '../presentation/cubit/note_cubit.dart';
 
 void initNotesModule(){
 
   getIt.registerLazySingleton(()=> NotesDbServise(notesDatabase: getIt()));
+  
   getIt.registerLazySingleton<NotesLocalRepository>(()=> NotesLocalRepositoryImpl(notesDbServise: getIt()));
 
   getIt.registerFactory(()=>NotesInteractor(notesLocalRepository: getIt()));
+  
+  getIt.registerFactory(()=> NoteCubit(notesInteractor: getIt()));
 }

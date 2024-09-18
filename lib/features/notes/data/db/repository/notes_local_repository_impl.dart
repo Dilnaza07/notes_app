@@ -14,7 +14,7 @@ class NotesLocalRepositoryImpl implements NotesLocalRepository {
 
   @override
   Future<int> saveNote(Note note) {
-    NoteEntity entity = NoteEntity(id: 0, title: note.title, content: note.content);
+    NoteEntity entity = NoteEntity(id: note.id, title: note.title, content: note.content);
     final id = _notesDbServise.insertNote(entity);
     debugPrint('### saveNote -> id: $id');
     return id;

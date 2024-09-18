@@ -15,5 +15,5 @@ void initNotesModule(){
 
   getIt.registerFactory(()=>NotesInteractor(notesLocalRepository: getIt()));
   
-  getIt.registerFactory(()=> NoteCubit(notesInteractor: getIt()));
+  getIt.registerFactoryParam((int? param1,param2)=> NoteCubit(id: param1, notesInteractor: getIt()));
 }

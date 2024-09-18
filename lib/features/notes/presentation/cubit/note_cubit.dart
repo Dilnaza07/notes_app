@@ -8,14 +8,22 @@ import 'package:flutter/material.dart';
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  NoteCubit({required NotesInteractor notesInteractor})
-      : _notesInteractor = notesInteractor,
-        super(NoteState(title: '', content: ''));
+  NoteCubit({
+    int? id,
+    required NotesInteractor notesInteractor,
+  })  : _notesInteractor = notesInteractor,
+        super(NoteState(title: '', content: '')) {
+    if (id != null) _loadNoteById(id);
+  }
 
   final NotesInteractor _notesInteractor;
 
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+
   void updateTitle(String title) {
     debugPrint('### NoteCubit -> updateTitle -> title: $title');
+
     emit(state.copyWith(title: title));
   }
 
@@ -24,10 +32,19 @@ class NoteCubit extends Cubit<NoteState> {
     emit(state.copyWith(content: content));
   }
 
-  void saveNote() async{
-    final note = Note(title: state.title, content: state.content);
+  void saveNote() async {
+    final note = Note(id: state.id, title: titleController.text, content: contentController.text);
     final id = await _notesInteractor.saveNote(note);
     debugPrint('### NoteCubit -> saveNote -> id: $id');
     emit(state.copyWith(needExit: true));
+  }
+
+  void _loadNoteById(int id) async {
+    emit(state.copyWith(id: id, isLoading: true));
+    final note = await _notesInteractor.getNoteById(id);
+    titleController.text = note?.title ?? '';
+    contentController.text = note?.content ?? '';
+    emit(state.copyWith(isLoading: false));
+    // emit(state.copyWith(title: note?.title, content: note?.content, shouldInit: true));
   }
 }

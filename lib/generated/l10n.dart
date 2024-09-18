@@ -90,6 +90,16 @@ class S {
     );
   }
 
+  /// `Редактирование заметки`
+  String get note_edit {
+    return Intl.message(
+      'Редактирование заметки',
+      name: 'note_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Введите текст`
   String get enter_text {
     return Intl.message(

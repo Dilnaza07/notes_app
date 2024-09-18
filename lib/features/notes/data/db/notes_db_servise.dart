@@ -1,5 +1,6 @@
 import 'package:notes_app/core/database/notes_database.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter/material.dart';
 
 import 'models/note_entity.dart';
 
@@ -15,6 +16,8 @@ class NotesDbServise {
 
   Future<int> insertNote(NoteEntity entity) async {
     final database = await _notesDatabase.database;
+    print(entity);
+    debugPrint('$entity');
     return database.insert(tableName, entity.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }

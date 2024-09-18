@@ -18,11 +18,16 @@ class NoteEntity extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-       // NotesDbServise.columnId: id,
+        NotesDbServise.columnId: id,
         NotesDbServise.columnTitle: title,
         NotesDbServise.columnContent: content,
       };
 
   @override
   List<Object?> get props => [id, title, content];
+
+  @override
+  String toString() {
+    return 'NoteEntity{id: $id, title: $title, content: $content}';
+  }
 }

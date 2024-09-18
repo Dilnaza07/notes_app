@@ -34,9 +34,9 @@ class _CreateButton extends StatelessWidget {
     final notesListBloc = context.read<NotesListBloc>();
     return FloatingActionButton(
       child: Icon(Icons.note_add_outlined),
-      onPressed: (){
-        context.push('/note').then((value){
-          if(value==true){
+      onPressed: () {
+        context.push('/note').then((value) {
+          if (value == true) {
             notesListBloc.add(NotesDataLoaded());
           }
         });
@@ -50,6 +50,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notesListBloc = context.read<NotesListBloc>();
     return BlocBuilder<NotesListBloc, NotesListState>(builder: (context, state) {
       final notes = state.notes;
       return ListView.builder(
@@ -58,11 +59,19 @@ class _Body extends StatelessWidget {
           return ListTile(
             leading: Icon(Icons.notes_outlined),
             title: Text(
-              "${notes[index].title} $index",
+              "${note.title}",
               style: TextStyle(fontSize: 20),
             ),
             subtitle: Text(note.content),
-            // onTap: ()=> context.push(),
+            onTap: () {
+              final id = note.id;
+              if (id == null) return;
+              context.push(NoteRoute.getRouteWithArgs(id)).then((value) {
+                if (value == true) {
+                  notesListBloc.add(NotesDataLoaded());
+                }
+              });
+            }, // onTap: ()=> context.push(),
           );
         },
         itemCount: notes.length,

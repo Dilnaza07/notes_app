@@ -18,16 +18,25 @@ class NotesRouter {
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: [
             GoRoute(
-              path: NotesListRoute.name,
-              pageBuilder: (context, state) => const MaterialPage(
-                child: NotesListPage(),
-              ),
-            ),
-            GoRoute(
-                path: NoteRoute.name,
+                path: NotesListRoute.name,
                 pageBuilder: (context, state) => const MaterialPage(
-                      child: NotePage(),
-                    ))
+                      child: NotesListPage(),
+                    ),
+                routes: [
+                  GoRoute(
+                    name: 'note',
+                    path: 'note',
+                    pageBuilder: (context, state) {
+                      final idString = state.uri.queryParameters[NoteRoute.idKeyArg];
+                      final id = int.tryParse(idString ?? '');
+                      return MaterialPage(
+                        child: NotePage(
+                          id: id,
+                        ),
+                      );
+                    },
+                  ),
+                ]),
           ]),
           StatefulShellBranch(routes: [
             GoRoute(
